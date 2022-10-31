@@ -73,12 +73,19 @@ ___
 ---
 | Attribute | Definition | Data Type |
 | ----- | ----- | ----- |
-| | | |
-| | | |
-| | | |
-| | | |
-| | | |
-| | | |
+| year | Year Survey Data was reported for. | [DATETIME] |
+| state | State Survey Data was reported for. | [OBJ64] |
+| data_item breakdown 1 | These 5 are the input values | |
+| data_item breakdown 2 | for the data item column, | |
+| data_item breakdown 3 | we're going to take them and | |
+| data_item breakdown 4 | break them into encoding so we | |
+| data_item breakdown 5 | have values that work for each year. | |
+| value | Instances of the data_item breakdown type for that year | [INT or FLOAT] |
+| total_annual_loss | percentage (%) of bees lost among all bee keeprs in the reported state. | |
+| beekeepers| Number of Bee Keepers with Colonies who operate in the reported state. | |
+| beekeepers_exclusive_to_state | Percentage (%) of Bee Keepers with Colonies ONLY in the reported state. (Keepers with colonies in more than one state have their numbers added to all states they operate in.) | |
+| colonies | Number of Colonies belonging to keepers who operate in the reported state.| |
+| colonies_exclusive_to_state | Percentage (%) of Colonies kept by Bee Keepers who ONLY operate in the reported state.  | |
 
 ***
 
