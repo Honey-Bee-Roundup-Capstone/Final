@@ -70,18 +70,20 @@ ___
 [[Back to top](#top)]
 
 ### Data Used
+<p>
+Originally Data was found on <a href = "https://data.world/finley/bee-colony-statistical-data-from-1987-2017">Data.World</a>, then up-to-date data was pull from the Original Souces, and we narrowed down to the Bee Colony Loss Data from <a href = "https://bip2.beeinformed.org/loss-map/">BeeInformed.org</a>
+</p>
+
 ---
 | Attribute | Definition | Data Type |
 | ----- | ----- | ----- |
 | year | Year Survey Data was reported for. | [DATETIME] |
 | state | State Survey Data was reported for. | [OBJ64] |
-| data_item breakdown 1 | These 5 are the input values | |
-| data_item breakdown 2 | for the data item column, | |
-| data_item breakdown 3 | we're going to take them and | |
-| data_item breakdown 4 | break them into encoding so we | |
-| data_item breakdown 5 | have values that work for each year. | |
-| value | Instances of the data_item breakdown type for that year | [INT or FLOAT] |
-| total_annual_loss | percentage (%) of bees lost among all bee keeprs in the reported state. | |
+| total_annual_loss | Percentage (%) of bees lost among all colonies in the reported state. | |
+| average_loss | Average Level of Bee Loss Experience by a Bee Keeper in the reported state. | |
+| starting_colonies | Number of Colonies at the start of the reporting period for the reported state. | |
+| colonies_lost | Number of Colonies lost at the end of the reporting period for the reported state. (Note: Loss rates should not be interpreted as a change in population size because beekeepers can replace lost colonies throughout the year. Therefore, colony loss rates are best interpreted as a turn-over rate, as high levels of losses do not necessarily result in a decrease in the total number of colonies managed in the United States.) | |
+| ending_colonies | Number of Colonies at the end of the reporting peroid for the reported state. | |
 | beekeepers| Number of Bee Keepers with Colonies who operate in the reported state. | |
 | beekeepers_exclusive_to_state | Percentage (%) of Bee Keepers with Colonies ONLY in the reported state. (Keepers with colonies in more than one state have their numbers added to all states they operate in.) | |
 | colonies | Number of Colonies belonging to keepers who operate in the reported state.| |
@@ -91,6 +93,13 @@ ___
 
 ## <a name="wrangle"></a>Data Acquisition and Preparation
 [[Back to top](#top)]
+<p>
+Data was originally found on Data.World, and further traced back to it's source to pull the most up-to-date data on Bees.
+<ul>Of the original 3 Data sets:
+<li> After assessement Census Data from the USDA was deemed not to have pertinent information to the current population of bees or health of hives, as well as the fact that it is reported in 5 year gaps, was removed from our initial data set.</li>
+<li> Survey Data by State from the USDA was also deemed as having less pertinent information on the trend in population of bees or health of their hives, and was left for further exploration as time permits due to a small amount of data on the environmental area of the colonies.</li>
+<li> The Bee Colony Loss Data from BeeInformed.org has the most relevant data regarding current number of colonies, number of bee keepers, and loss of bees and colonies, so was the data set we initially focused on.
+  <ul><li> However, due to this privacy stipulation "For the protection of privacy, losses are reported as N/A if 10 or fewer beekeepers responded in that state. These beekeepers' losses are included in the national statistics." we decided to drop all records where the number of beekeepers were 10 or less, as most of the data was Null, and therefore not contributing towards our goal. </li></ul></li></ul>
 
 ![]()
 
