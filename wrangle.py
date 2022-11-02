@@ -65,6 +65,14 @@ def prep_bees():
     df.ending_colonies = df.ending_colonies.astype(int)
     # change colonies_lost column to int
     df.colonies_lost = df.colonies_lost.astype(int)
+    # pull only annual season data
+    df = df[df.season == "annual"]
+    #pull non multistates and non continental usa data
+    df = df[(df.state != "multistates")& (df.state != "non_continental_usa")]
+    # create column net gain / loss for each state
+    df['colonies_net_gain'] = df.ending_colonies - df.starting_colonies
+    # create a column for beekeeper to colony ratio
+    df['beekeeper_colony_ratio'] = df.ending_colonies / df.beekeepers
     # return the cleaned and sorted dataframe
     return df
 
