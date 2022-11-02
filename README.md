@@ -74,6 +74,8 @@ ___
 Originally Data was found on <a href = "https://data.world/finley/bee-colony-statistical-data-from-1987-2017">Data.World</a>, then up-to-date data was pull from the Original Souces, and we narrowed down to the Bee Colony Loss Data from <a href = "https://bip2.beeinformed.org/loss-map/">BeeInformed.org</a>
 </p>
 
+#### Starting DataFrame:
+
 ---
 | Attribute | Definition | Data Type |
 | ----- | ----- | ----- |
@@ -88,6 +90,8 @@ Originally Data was found on <a href = "https://data.world/finley/bee-colony-sta
 | beekeepers_exclusive_to_state | Percentage (%) of Bee Keepers with Colonies ONLY in the reported state. (Keepers with colonies in more than one state have their numbers added to all states they operate in.) | |
 | colonies | Number of Colonies belonging to keepers who operate in the reported state.| |
 | colonies_exclusive_to_state | Percentage (%) of Colonies kept by Bee Keepers who ONLY operate in the reported state.  | |
+
+#### Final DataFrame:
 
 ***
 
