@@ -39,22 +39,44 @@ ___
 
 ### Project Outline:
 
+Technical Goals:
+
+Our technical goals are to analyze honeybee colony data from the USDA to determine if there is a statistically significant amount of loss among colonies over time, and to develop a machine learning model that accurately predicts honeybee colony loss based on significant environmental and human-driven features. We can use these predictions to make recommendations to stakeholders to minimize colony loss and improve outcomes.
+
+Business Goals:
+
+Honeybees pollinate $15 billion worth of crops in the United States each year, including more than 130 types of fruits, nuts, and vegetables. Honeybees also produce honey, worth about $3.2 million in 2017 according to USDA-National Agricultural Statistics Service (NASS).
+
+We want to provide stakeholders with an accurate model for predicting colony loss over time, which factors affect colony loss, and which areas are most conducive to colony production and preservation. We also want to provide a way for stakeholders to test outcomes based on actions they take (or not take) to mitigate colony loss. Our overarching business goal is to influence stakeholders to make responsible and proactive decisions to help honeybees thrive.
 
         
 ### Hypothesis
 
+Our initial hypothesis is that honeybee colony loss has increased over time and will continue to increase year over year if no measures are taken to mitigate or reverse this outcome. Some initial questions we have are:
 
+How much have honeybee colonies diminished over time? Is this loss compounded year over year?
+
+What significant features drive honeybee colony loss?
+
+What time of year is the biggest loss?
+
+What state/area suffers heaviest loss and primary factors attributing to that?
+
+Does summer or winter have the largest loss?
+
+Does the beekeeper to colony ratio have an effect on colony loss?
 
 ### Target variable
 
+Our target variable is honeybee colony loss. We trained and evaluated several machine learning models to predict future colony loss based on significant features. We selected the best-performing model for testing unseen data.
 
 ### Need to haves (Deliverables):
 
-
+Final Notebook: Full pipeline, hypotheses, statistical testing, markdown, code comments wrangle.py explore.py modeling.py Three models including time series Slide deck 7-10 minute presentation to a mixed technical and non-tech audience.
 
 ### Nice to haves (With more time):
 
-
+Interactive map
 
 ***
 
@@ -74,6 +96,8 @@ ___
 Originally Data was found on <a href = "https://data.world/finley/bee-colony-statistical-data-from-1987-2017">Data.World</a>, then up-to-date data was pull from the Original Souces, and we narrowed down to the Bee Colony Loss Data from <a href = "https://bip2.beeinformed.org/loss-map/">BeeInformed.org</a>
 </p>
 
+#### Starting DataFrame:
+
 ---
 | Attribute | Definition | Data Type |
 | ----- | ----- | ----- |
@@ -88,6 +112,8 @@ Originally Data was found on <a href = "https://data.world/finley/bee-colony-sta
 | beekeepers_exclusive_to_state | Percentage (%) of Bee Keepers with Colonies ONLY in the reported state. (Keepers with colonies in more than one state have their numbers added to all states they operate in.) | |
 | colonies | Number of Colonies belonging to keepers who operate in the reported state.| |
 | colonies_exclusive_to_state | Percentage (%) of Colonies kept by Bee Keepers who ONLY operate in the reported state.  | |
+
+#### Final DataFrame:
 
 ***
 
@@ -125,34 +151,36 @@ Data was originally found on Data.World, and further traced back to it's source 
 ## <a name="stats"></a>Statistical Analysis
 [[Back to top](#top)]
 
-### Stats Test 1: ANOVA Test: One Way
+### Stats Test 1: Correlation Test
 
-Analysis of variance, or ANOVA, is a statistical method that separates observed variance data into different components to use for additional tests. 
+Correlation tests are used to check if two samples are related. They are often used for feature selection and multivariate analysis in data preprocessing and exploration.
 
-A one-way ANOVA is used for three or more groups of data, to gain information about the relationship between the dependent and independent variables: in this case our clusters vs. the log_error, respectively.
 
-To run the ANOVA test in Python use the following import: \
-<span style="color:green">from</span> scipy.stats <span style="color:green">import</span> f_oneway
+To run the Correlation test in Python use the following import: \
+<span style="color:green">from</span> scipy.stats <span style="color:green">import</span> pearsonr
 
-- f_oneway, in this case, takes in the individual clusters and returns the f-statistic, f, and the p_value, p:
-    - the f-statistic is simply a ratio of two variances. 
-    - The p_vlaue is the probability of obtaining test results at least as extreme as the results actually observed, under the assumption that the null hypothesis is correct
+- pearsonr, in this case, takes in the  and returns the correlation coefficient, corr, and the p_value, p:
+    - the correlation coefficient is a unitless continuous numerical measure between -1 and 1, where 1= perfect correlation and -1 = perfect negative correlation. 
+    - The p_value is the probability of obtaining test results at least as extreme as the results actually observed, under the assumption that the null hypothesis is correct.
 
 #### Hypothesis:
-- The null hypothesis (H<sub>0</sub>) is
-- The alternate hypothesis (H<sub>1</sub>) is 
+- The null hypothesis (H<sub>0</sub>) is there is no relationship between the number of colonies lost annually and the beekeeper to colony ratio.
+- The alternate hypothesis (H<sub>1</sub>) is there is a relationship between the number of colonies lost annually and the beekeeper to colony ratio.
 
 #### Confidence level and alpha value:
-- I established a 95% confidence level
+- I established a 95% confidence level 
 - alpha = 1 - confidence, therefore alpha is 0.05
 
 #### Results:
 
+corr = 0.765
+p = 3.51e-57
 
 #### Summary:
 
+We can reject the null hypothesis that there is no relationship between the number of colonies lost annually and the beekeeper to colony ratio.
 
-### Stats Test 2: T-Test: One Sample, Two Tailed
+### Stats Test 2: T-Test: Two Samples, Two Tailed
 - A T-test allows me to compare a categorical and a continuous variable by comparing the mean of the continuous variable by subgroups based on the categorical variable
 - The t-test returns the t-statistic and the p-value:
     - t-statistic: 
@@ -161,13 +189,11 @@ To run the ANOVA test in Python use the following import: \
         - t-statistic of 0 = H<sub>0</sub>
     -  - the p-value:
         - The probability of obtaining test results at least as extreme as the results actually observed, under the assumption that the null hypothesis is correct
-- We wanted to compare the individual clusters to the total population. 
-    - Cluster1 to the mean of ALL clusters
-    - Cluster2 to the mean of ALL clusters, etc.
+- We wanted to compare colony loss in the summer to colony loss in the winter. 
 
 #### Hypothesis:
-- The null hypothesis (H<sub>0</sub>) is 
-- The alternate hypothesis (H<sub>1</sub>) is 
+- The null hypothesis (H<sub>0</sub>) is there is no difference between the number of colonies lost in the summer and the number of colonies lost in the winter.
+- The alternate hypothesis (H<sub>1</sub>) is a difference between the number of colonies lost in the summer and the number of colonies lost in the winter.
 
 #### Confidence level and alpha value:
 - I established a 95% confidence level
@@ -176,8 +202,12 @@ To run the ANOVA test in Python use the following import: \
 
 #### Results:
 
+t = 4.322
+p = 1.840e-5
 
 #### Summary:
+
+We can reject the null hypothesis that there is no difference in colony loss between summer and winter.
 
 ***
 
