@@ -33,6 +33,9 @@ ___
 ## <a name="project_description"></a>Project Description:
 [[Back to top](#top)]
 
+Bees provide nearly one-third of the food we eat by pollinating our fields and orchards. Bees are also a multi-billion dollar industry. The problem is that honeybee colonies are shrinking more and more each year. What we aim to do is predict honeybee colony loss over time based on key factors that help and harm honeybees. We will then make recommendations to people in the business: beekeepers, farmers, the USDA, honey and wax companies, and so on, to mitigate future losses and improve the overall outlook of honeybees in general. This project provides both a financial benefit and an environmental one, and we're excited to see what solutions we can provide for this important issue.
+
+
 ***
 ## <a name="planning"></a>Project Planning: 
 [[Back to top](#top)]
