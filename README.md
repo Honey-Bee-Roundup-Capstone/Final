@@ -145,6 +145,14 @@ Data was originally found on Data.World, and further traced back to it's source 
 
 ### Wrangle steps: 
 
+- We created separate functions for preparing the data- one for time series analysis and one for linear regression modeling.
+- All observations with 10 or less beekeepers were dropped because the data for those observations is protected under privacy laws.
+- All strings were stripped, lowercased, and spaces were replaced with underscores.
+- We engineered two columns: beekeeper_colony_ratio (colonies lost / beekeepers) and colony_net_gain (ending_colonies - starting_colonies).
+- We also created dummy variables for the three categories in the season column: winter, summer, and annual.
+- Multistate and non_continental data were dropped, and we isolated only observations with beekeepers exclusive to their respective states.
+- We converted all numerical columns to integers or floats and the year to datetime format.
+
 
 *********************
 
