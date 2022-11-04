@@ -216,65 +216,87 @@ We can reject the null hypothesis that there is no difference in colony loss bet
 
 ### Model Preparation:
 
+- We scaled the data using the MinMaxScaler with the exception of our target variable, colonies_lost. We selected two features through statistical testing: beekeeper_colony_ratio and colonies_net_gained. We ran a recursive feature elimination (RFE) and Select K Best to confirm our choices, and added three more based on the results: beekeepers_scaled, starting_colonies_scaled, and ending_colonies_scaled.
+
+- After scaling the data, we calculated a baseline using both the mean and the median, and selected the mean because it had a lower RMSE than the median. We selected four models to fit and train and created a function to run all four models and return the RMSE for both the train and validate sets.
+
+
 ### Baseline
     
 - Baseline Results: 
     
+    RMSE using Mean on 
+      Train:  2794.49 
+      Validate:  1715.12
+
+    RMSE using Median on 
+      Train:  2867.69 
+      Validate:  1837.86
 
 - Selected features to input into models:
-    - features = []
+    - features = ['beekeepers_scaled', 'starting_colonies_scaled','ending_colonies_scaled', 'colonies_net_gain_scaled', 'beekeeper_colony_ratio_scaled']
 
 ***
 
 ### Models and R<sup>2</sup> Values:
+
+
 - Will run the following regression models:
 
-    
+   OLS, Lasso Lars, Tweedie Regressor, Polynomial Features 
 
-- Other indicators of model performance with breif defiition and why it's important:
-
-    
     
 #### Model 1: Linear Regression (OLS)
 
 
-- Model 1 results:
-
+- Model 1 results: 
+    RMSE:
+      - Train: 1212.60
+      - Validate: 900.12
 
 
 ### Model 2 : Lasso Lars Model
 
 
-- Model 2 results:
+- Model 2 results: 
+    RMSE:
+    - Train: 1213.01
+    - Validate: 882.29
 
 
 ### Model 3 : Tweedie Regressor (GLM)
 
 - Model 3 results:
+    RMSE:
+    - Train: 1557.26
+    - Validate: 1614.44
 
 
-### Model 4: Quadratic Regression Model
+### Model 4: Squared Regression Model
 
-- Model 4 results:
+- Model 4 results: 
+    RMSE:
+    - Train: 384.35
+    - Validate: 3512.81
 
 
 ## Selecting the Best Model:
 
-### Use Table below as a template for all Modeling results for easy comparison:
-
-| Model | Validation/Out of Sample RMSE | R<sup>2</sup> Value |
-| ---- | ----| ---- |
-| Baseline | 0.167366 | 2.2204 x 10<sup>-16</sup> |
-| Linear Regression (OLS) | 0.166731 | 2.1433 x 10<sup>-3</sup> |  
-| Tweedie Regressor (GLM) | 0.155186 | 9.4673 x 10<sup>-4</sup>|  
-| Lasso Lars | 0.166731 | 2.2204 x 10<sup>-16</sup> |  
-| Quadratic Regression | 0.027786 | 2.4659 x 10<sup>-3</sup> |  
 
 
-- {} model performed the best
+                                 model   RMSE_train  RMSE_validate
+0                             Baseline  2794.490927    1715.116523
+1                        OLS Regressor  1212.600000     900.120000
+2                 LASSOLARS(alpha = 1)  1213.010000     882.290000
+3  Tweedie Regressor(power=1, alpha=0)  1557.260000    1614.440000
+4    Polynomial Regression(degree = 2)   394.350000    3512.810000
+
+
+- The LassoLars model performed best on both the train and validate sets, beating baseline RMSE on train by 1581.49 and on validate by 832.83. The baseline difference between train and validate sets was 1079.37, and the selected model had an RMSE  difference of 330.71.
 
 
 ## Testing the Model
+
 
 - Model Testing Results
 
