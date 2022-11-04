@@ -292,7 +292,7 @@ We can reject the null hypothesis that there is no difference in colony loss bet
 4    Polynomial Regression(degree = 2)   394.350000    3512.810000
 
 
-- The LassoLars model performed best on both the train and validate sets, beating baseline RMSE on train by 1581.49 and on validate by 832.83. The baseline difference between train and validate sets was 1079.37, and the selected model had an RMSE  difference of 330.71.
+- The LassoLars model performed well on the train and validate sets, beating baseline RMSE on train by 1581.49 and on validate by 832.83. The baseline difference between train and validate sets was 1079.37, and the selected model had an RMSE  difference of 330.71. The OLS Regressor also performed well, but we decided overall that the Lasso Lars model is the best model for this project.
 
 
 ## Testing the Model
