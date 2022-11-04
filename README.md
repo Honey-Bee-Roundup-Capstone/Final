@@ -83,7 +83,17 @@ Interactive map
 ## <a name="findings"></a>Key Findings:
 [[Back to top](#top)]
 
+- The United States has an overall net loss in honeybee colonies each year. 2020 saw a net gain, perhaps as a result of less human activity and interference, as well as improved environmental conditions, during the pandemic.
 
+- The beekeeper-to-colony ratio has a significant positive correlation with colony loss (76 percent).
+
+- More colonies are lost in the winter season than in the summer season. This is consistent year after year.
+
+- Florida and Wisconsin have had the highest cumulative net loss over time. Their stark differences in climate and geolocation point to factors other than location and climate affecting colony loss.
+
+- Colonies that are exclusive to their respective states suffer less losses than colonies that travel to other states.
+
+- California's beekeeping operation is vastly larger than any other state; they have the most colony losses per year as a result, but they have been relatively successful in replacing the lost colonies and adding new ones over time.
 
 
 ***
