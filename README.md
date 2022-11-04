@@ -33,6 +33,9 @@ ___
 ## <a name="project_description"></a>Project Description:
 [[Back to top](#top)]
 
+Bees provide nearly one-third of the food we eat by pollinating our fields and orchards. Bees are also a multi-billion dollar industry. The problem is that honeybee colonies are shrinking more and more each year. What we aim to do is predict honeybee colony loss over time based on key factors that help and harm honeybees. We will then make recommendations to people in the business: beekeepers, farmers, the USDA, honey and wax companies, and so on, to mitigate future losses and improve the overall outlook of honeybees in general. This project provides both a financial benefit and an environmental one, and we're excited to see what solutions we can provide for this important issue.
+
+
 ***
 ## <a name="planning"></a>Project Planning: 
 [[Back to top](#top)]
@@ -83,7 +86,17 @@ Interactive map
 ## <a name="findings"></a>Key Findings:
 [[Back to top](#top)]
 
+- The United States has an overall net loss in honeybee colonies each year. 2020 saw a net gain, perhaps as a result of less human activity and interference, as well as improved environmental conditions, during the pandemic.
 
+- The beekeeper-to-colony ratio has a significant positive correlation with colony loss (76 percent).
+
+- More colonies are lost in the winter season than in the summer season. This is consistent year after year.
+
+- Florida and Wisconsin have had the highest cumulative net loss over time. Their stark differences in climate and geolocation point to factors other than location and climate affecting colony loss.
+
+- Colonies that are exclusive to their respective states suffer less losses than colonies that travel to other states.
+
+- California's beekeeping operation is vastly larger than any other state; they have the most colony losses per year as a result, but they have been relatively successful in replacing the lost colonies and adding new ones over time.
 
 
 ***
@@ -131,6 +144,14 @@ Data was originally found on Data.World, and further traced back to it's source 
 
 
 ### Wrangle steps: 
+
+- We created separate functions for preparing the data- one for time series analysis and one for linear regression modeling.
+- All observations with 10 or less beekeepers were dropped because the data for those observations is protected under privacy laws.
+- All strings were stripped, lowercased, and spaces were replaced with underscores.
+- We engineered two columns: beekeeper_colony_ratio (colonies lost / beekeepers) and colony_net_gain (ending_colonies - starting_colonies).
+- We also created dummy variables for the three categories in the season column: winter, summer, and annual.
+- Multistate and non_continental data were dropped, and we isolated only observations with beekeepers exclusive to their respective states.
+- We converted all numerical columns to integers or floats and the year to datetime format.
 
 
 *********************
@@ -216,65 +237,87 @@ We can reject the null hypothesis that there is no difference in colony loss bet
 
 ### Model Preparation:
 
+- We scaled the data using the MinMaxScaler with the exception of our target variable, colonies_lost. We selected two features through statistical testing: beekeeper_colony_ratio and colonies_net_gained. We ran a recursive feature elimination (RFE) and Select K Best to confirm our choices, and added three more based on the results: beekeepers_scaled, starting_colonies_scaled, and ending_colonies_scaled.
+
+- After scaling the data, we calculated a baseline using both the mean and the median, and selected the mean because it had a lower RMSE than the median. We selected four models to fit and train and created a function to run all four models and return the RMSE for both the train and validate sets.
+
+
 ### Baseline
     
 - Baseline Results: 
     
+    RMSE using Mean on 
+      Train:  2794.49 
+      Validate:  1715.12
+
+    RMSE using Median on 
+      Train:  2867.69 
+      Validate:  1837.86
 
 - Selected features to input into models:
-    - features = []
+    - features = ['beekeepers_scaled', 'starting_colonies_scaled','ending_colonies_scaled', 'colonies_net_gain_scaled', 'beekeeper_colony_ratio_scaled']
 
 ***
 
 ### Models and R<sup>2</sup> Values:
+
+
 - Will run the following regression models:
 
-    
+   OLS, Lasso Lars, Tweedie Regressor, Polynomial Features 
 
-- Other indicators of model performance with breif defiition and why it's important:
-
-    
     
 #### Model 1: Linear Regression (OLS)
 
 
-- Model 1 results:
-
+- Model 1 results: 
+    RMSE:
+      - Train: 1212.60
+      - Validate: 900.12
 
 
 ### Model 2 : Lasso Lars Model
 
 
-- Model 2 results:
+- Model 2 results: 
+    RMSE:
+    - Train: 1213.01
+    - Validate: 882.29
 
 
 ### Model 3 : Tweedie Regressor (GLM)
 
 - Model 3 results:
+    RMSE:
+    - Train: 1557.26
+    - Validate: 1614.44
 
 
-### Model 4: Quadratic Regression Model
+### Model 4: Squared Regression Model
 
-- Model 4 results:
+- Model 4 results: 
+    RMSE:
+    - Train: 384.35
+    - Validate: 3512.81
 
 
 ## Selecting the Best Model:
 
-### Use Table below as a template for all Modeling results for easy comparison:
-
-| Model | Validation/Out of Sample RMSE | R<sup>2</sup> Value |
-| ---- | ----| ---- |
-| Baseline | 0.167366 | 2.2204 x 10<sup>-16</sup> |
-| Linear Regression (OLS) | 0.166731 | 2.1433 x 10<sup>-3</sup> |  
-| Tweedie Regressor (GLM) | 0.155186 | 9.4673 x 10<sup>-4</sup>|  
-| Lasso Lars | 0.166731 | 2.2204 x 10<sup>-16</sup> |  
-| Quadratic Regression | 0.027786 | 2.4659 x 10<sup>-3</sup> |  
 
 
-- {} model performed the best
+                                 model   RMSE_train  RMSE_validate
+0                             Baseline  2794.490927    1715.116523
+1                        OLS Regressor  1212.600000     900.120000
+2                 LASSOLARS(alpha = 1)  1213.010000     882.290000
+3  Tweedie Regressor(power=1, alpha=0)  1557.260000    1614.440000
+4    Polynomial Regression(degree = 2)   394.350000    3512.810000
+
+
+- The LassoLars model performed well on the train and validate sets, beating baseline RMSE on train by 1581.49 and on validate by 832.83. The baseline difference between train and validate sets was 1079.37, and the selected model had an RMSE  difference of 330.71. The OLS Regressor also performed well, but we decided overall that the Lasso Lars model is the best model for this project.
 
 
 ## Testing the Model
+
 
 - Model Testing Results
 

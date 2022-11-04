@@ -73,9 +73,10 @@ def prep_bees():
     df['colonies_net_gain'] = df.ending_colonies - df.starting_colonies
     # create a column for beekeeper to colony ratio
     df['beekeeper_colony_ratio'] = df.ending_colonies / df.beekeepers
+    # look at only beekeepers exclusive to state
+    df = df[df.beekeepers_exclusive_to_state == 100]
     # return the cleaned and sorted dataframe
     return df
-
 
 def state_ansi():
     ''' This function will load state ansi from csv and turn state with its corresponding ansi'''
@@ -106,7 +107,7 @@ def geo_data():
     return df
 
 def bee_merged():
-    """This function will call in three different function and merge them all"""
+    '''This function will call in three different function and merge them all'''
     #call in prep bees function
     df = prep_bees()
     #call in function for state  ansi data
@@ -119,4 +120,18 @@ def bee_merged():
     df = df.merge(df2, on="state", how = "left")
     
     #return back dataframe
+    return df
+
+
+def bee_wrangle():
+    '''
+    initial clean data creation, then loading of clean data and addition of state ansi and geo data
+    returns df merged and ready to go.
+    after initial prep, bee_merged() is only item that needs to be called to get data going.
+    '''
+    # Pulling the initial data to clean it, saves as bee_colony_loss.csv:
+    df = get_bee_data()
+    # loads the clean data, state ansi data, geo location data and then left joins them on state to the clean data.
+    df = bee_merged()
+    # Returns brand new DataFrame ready to go!
     return df
