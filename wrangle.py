@@ -2,10 +2,6 @@
 import pandas as pd
 import numpy as np
 
-# Basic Data Science Visualization Imports
-import matplotlib.pyplot as plt
-import seaborn as sns
-
 # shhh
 import warnings
 warnings.filterwarnings('ignore')
