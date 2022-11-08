@@ -247,19 +247,23 @@ We can reject the null hypothesis that there is no difference in colony loss bet
 - Baseline Results: 
     
     RMSE using Mean on 
-      Train:  2794.49 
-      Validate:  1715.12
+      Train:  2675.28  
+      Validate:  1881.73
 
     RMSE using Median on 
-      Train:  2867.69 
-      Validate:  1837.86
+      Train:  2759.24  
+      Validate:  1911.84
+      
+Since our baseline RMSE using mean is smaller than RMSE using median, we will use RMSE mean for our baseline
+
+We used SelectKbest and Recursive feature Selection to help us identify our most important drivers of colony loss. We picked 4 features.
 
 - Selected features to input into models:
     - features = ['beekeepers_scaled', 'starting_colonies_scaled','ending_colonies_scaled', 'colonies_net_gain_scaled', 'beekeeper_colony_ratio_scaled']
 
 ***
 
-### Models and R<sup>2</sup> Values:
+### Models and RMSE Values:
 
 
 - Will run the following regression models:
@@ -272,8 +276,8 @@ We can reject the null hypothesis that there is no difference in colony loss bet
 
 - Model 1 results: 
     RMSE:
-      - Train: 1212.60
-      - Validate: 900.12
+      - Train: 1089.66
+      - Validate: 882.27
 
 
 ### Model 2 : Lasso Lars Model
@@ -281,24 +285,24 @@ We can reject the null hypothesis that there is no difference in colony loss bet
 
 - Model 2 results: 
     RMSE:
-    - Train: 1213.01
-    - Validate: 882.29
+    - Train: 1089.18
+    - Validate: 897.70
 
 
 ### Model 3 : Tweedie Regressor (GLM)
 
 - Model 3 results:
     RMSE:
-    - Train: 1557.26
-    - Validate: 1614.44
+    - Train: 1674.01
+    - Validate: 1950.43
 
 
-### Model 4: Squared Regression Model
+### Model 4: Polynomial Regression Model
 
 - Model 4 results: 
     RMSE:
-    - Train: 384.35
-    - Validate: 3512.81
+    - Train: 1018.15
+    - Validate: 1281.37
 
 
 ## Selecting the Best Model:
