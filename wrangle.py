@@ -2,6 +2,46 @@
 import pandas as pd
 import numpy as np
 
+# shhh
+import warnings
+warnings.filterwarnings('ignore')
+
+
+# =========================== Basic Acquire and Clean ========================
+
+def get_bee_data():
+    '''
+    Reads the Raw data of the Bee Informed State Bee Loss Table (2022) CSV,
+    Drops columns that contain data we don't plan to utilize.
+    Drops the first column since they're the 'Python Column Names',
+    Renames columns into a more Python friendly format,
+    Saves the new working CSV as bee_colony_loss.csv
+    '''
+    # Read Raw CSV:
+    df = pd.read_csv("BeeInformed_States_Loss_Table_by_Year_public_ready_2022.csv")
+    # Drops several columns with data from their statistical accounting, which is nice they included, but we're looking more for numbers to work with for our own stats.
+    df = df.drop(columns=["Column name as written in R Script", 'State abbreviation', "Method of tallying multi-states operations (included in all states, excluded from all states, exlusively multi-states)", 
+       'Bootstrap replication',
+       'Bootstrap method',
+       'Bootstrap estimate of the Total Loss (weigthed average)',
+       'Boostrap-based 95% confidence interval(low) of the weighted average loss',
+       'Boostrap-based 95% confidence interval(high) of the weighted average loss',
+       'Bootstrap estimate of the Average Loss (unweigthed average)',
+       'Boostrap-based 95% confidence interval(low) of the unweighted average loss',
+       'Boostrap-based 95% confidence interval(high) of the unweighted average loss',
+       'glm-based 95% confidence interval(low) of the weighted average loss',
+       'glm-based 95% confidence interval(high) of the weighted average loss',
+       'standard deviation of operational losses',
+       'standard error of the unweithed average estimate',
+       'glm-based 95% confidence interval(low) of the unweighted average loss',
+       'glm-based 95% confidence interval(high) of the unweighted average loss',
+       'Total number of colonies "at risk" (colonies at the start, new colonies added, without colonies sold or given away)'])
+    # Due to the format the CSV comes in, the first line is "Python" column names, so we'll drop the first row since we're stuck with the R column names for our columns.
+    df = df.iloc[1:, :]
+    # Renaming Columns to be more Python Friendly.
+    df.columns = ["state", "year", "season", "beekeepers", "total_loss", "average_loss", "starting_colonies", "colonies_lost", "ending_colonies", "beekeepers_exclusive_to_state", "colonies_exclusive_to_state"]
+    df.to_csv("bee_colony_loss.csv")
+    return df
 
 def prep_bees():
     '''This function loads the bee_colony_loss.csv into a dataframe, cleans and sorts it, and returns a dataframe.'''
@@ -86,6 +126,21 @@ def bee_merged():
     
     #return back dataframe
     return df
+
+def bee_wrangle():
+    '''
+    initial clean data creation, then loading of clean data and addition of state ansi and geo data
+    returns df merged and ready to go.
+    after initial prep, bee_merged() is only item that needs to be called to get data going.
+    '''
+    # Pulling the initial data to clean it, saves as bee_colony_loss.csv:
+    df = get_bee_data()
+    # loads the clean data, state ansi data, geo location data and then left joins them on state to the clean data.
+    df = bee_merged()
+    # Returns brand new DataFrame ready to go!
+    return df
+
+# ====================== TIME SERIES =========================
 
 def ts_bee_prep():
     '''This function loads the bee colony loss csv into a pandas dataframe. It cleans the data and prepares it for time
