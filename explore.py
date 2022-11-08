@@ -1,12 +1,25 @@
+# Basic Data Science Imports
 import pandas as pd
 import numpy as np
 import os
 import wrangle
 import matplotlib.pyplot as plt
 import seaborn as sns
+sns.set_theme()
+
+# Stats and M odeling imports
 from scipy import stats
+from math import sqrt
+import regression_models as model
+from sklearn.preprocessing import MinMaxScaler, PolynomialFeatures
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import mean_squared_error,explained_variance_score, r2_score
+from sklearn.linear_model import LinearRegression,LassoLars,TweedieRegressor
+from sklearn.feature_selection import SelectKBest, RFE, f_regression
 from sklearn.model_selection import train_test_split
 import sklearn.preprocessing
+
+
 
 def split_data(df):
     '''This function takes in a dataframe and returns three dataframes, a training dataframe with 60 percent 
