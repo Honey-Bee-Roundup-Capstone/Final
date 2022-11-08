@@ -247,19 +247,23 @@ We can reject the null hypothesis that there is no difference in colony loss bet
 - Baseline Results: 
     
     RMSE using Mean on 
-      Train:  2794.49 
-      Validate:  1715.12
+      Train:  2675.28  
+      Validate:  1881.73
 
     RMSE using Median on 
-      Train:  2867.69 
-      Validate:  1837.86
+      Train:  2759.24  
+      Validate:  1911.84
+      
+Since our baseline RMSE using mean is smaller than RMSE using median, we will use RMSE mean for our baseline
+
+We used SelectKbest and Recursive feature Selection to help us identify our most important drivers of colony loss. We picked 4 features.
 
 - Selected features to input into models:
     - features = ['beekeepers_scaled', 'starting_colonies_scaled','ending_colonies_scaled', 'colonies_net_gain_scaled', 'beekeeper_colony_ratio_scaled']
 
 ***
 
-### Models and R<sup>2</sup> Values:
+### Models and RMSE Values:
 
 
 - Will run the following regression models:
@@ -272,8 +276,8 @@ We can reject the null hypothesis that there is no difference in colony loss bet
 
 - Model 1 results: 
     RMSE:
-      - Train: 1212.60
-      - Validate: 900.12
+      - Train: 1089.66
+      - Validate: 882.27
 
 
 ### Model 2 : Lasso Lars Model
@@ -281,43 +285,49 @@ We can reject the null hypothesis that there is no difference in colony loss bet
 
 - Model 2 results: 
     RMSE:
-    - Train: 1213.01
-    - Validate: 882.29
+    - Train: 1089.18
+    - Validate: 897.70
 
 
 ### Model 3 : Tweedie Regressor (GLM)
 
 - Model 3 results:
     RMSE:
-    - Train: 1557.26
-    - Validate: 1614.44
+    - Train: 1674.01
+    - Validate: 1950.43
 
 
-### Model 4: Squared Regression Model
+### Model 4: Polynomial Regression Model
 
 - Model 4 results: 
     RMSE:
-    - Train: 384.35
-    - Validate: 3512.81
+    - Train: 1018.15
+    - Validate: 1281.37
 
 
 ## Selecting the Best Model:
 
+| model  | RMSE_train |RMSE_validate|
+|---|--|---|
+|Baseline | 2675.28 |   1881.73|
+|    OLS Regressor  |1089.66  |  882|
+| LASSOLARS(alpha = 1)  |1089.18  |   897.70|
+|Tweedie Regressor(power=1, alpha=0)  |1674.01 |  1950.43|
+| Polynomial Regression(degree = 2)   |1018.15 |  1281.37|
 
 
-                                 model   RMSE_train  RMSE_validate
-0                             Baseline  2794.490927    1715.116523
-1                        OLS Regressor  1212.600000     900.120000
-2                 LASSOLARS(alpha = 1)  1213.010000     882.290000
-3  Tweedie Regressor(power=1, alpha=0)  1557.260000    1614.440000
-4    Polynomial Regression(degree = 2)   394.350000    3512.810000
-
-
-- The LassoLars model performed well on the train and validate sets, beating baseline RMSE on train by 1581.49 and on validate by 832.83. The baseline difference between train and validate sets was 1079.37, and the selected model had an RMSE  difference of 330.71. The OLS Regressor also performed well, but we decided overall that the Lasso Lars model is the best model for this project.
+- The LassoLars model performed well on the train and validate sets, beating baseline RMSE on train by 1586.81 and on validate by 984.03. (The baseline difference between train and validate sets was 1079.37, and the selected model had an RMSE  difference of 330.71). The OLS Regressor also performed well, but we decided overall that the Lasso Lars model is the best model for this project.
 
 
 ## Testing the Model
+Using LassoLars, we predicted our model on test data.
 
+|RMSE|Value|
+|-|-|
+|RMSE Baseline| 2675.28|
+|RMSE Train|1089.18|
+|RMSE Validate |897.70|
+|RMSE Test | 1717.23|
 
 - Model Testing Results
 
