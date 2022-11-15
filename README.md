@@ -313,7 +313,7 @@ We used SelectKbest and Recursive feature Selection to help us identify our most
 |Baseline | 2675.28 |   1881.73|
 |    OLS Regressor  |1089.66  |  882|
 | LASSOLARS(alpha = 1)  |1089.18  |   897.70|
-|Tweedie Regressor(power=1, alpha=0)  |1674.01 |  1950.43|
+|Tweedie Regressor(power=5, alpha=1)  |1674.01 |  1950.43|
 | Polynomial Regression(degree = 2)   |1018.15 |  1281.37|
 
 
@@ -325,10 +325,10 @@ Using LassoLars, we predicted our model on test data.
 
 |RMSE|Value|
 |-|-|
-|RMSE Baseline| 2675.28|
-|RMSE Train|1089.18|
-|RMSE Validate |897.70|
-|RMSE Test | 1717.23|
+|Baseline| 2675.28|
+|Train|1089.18|
+|Validate |897.70|
+|RMSE | 1717.23|
 
 - Model Testing Results
 
