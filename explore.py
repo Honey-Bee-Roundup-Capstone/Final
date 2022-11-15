@@ -113,7 +113,7 @@ def RMSE(X_train,y_train, X_validate, y_validate):
 
     #append model and RMSE from OLS model to metric dataframe
     metric_df = metric_df.append({
-    'model': 'OLS Regressor', 
+    'model': 'OLS Regressor(normalize = True)', 
     'RMSE_train': rmse_train_lm,
     'RMSE_validate': rmse_validate_lm,
     }, ignore_index=True)
@@ -134,7 +134,7 @@ def RMSE(X_train,y_train, X_validate, y_validate):
 
     #append model and RMSE from LASSOLARS model to metric dataframe
     metric_df = metric_df.append({
-    'model': 'LASSOLARS(alpha = 1)', 
+    'model': 'LASSOLARS(alpha=1, normalize=True)', 
     'RMSE_train': rmse_train_lars,
     'RMSE_validate': rmse_validate_lars,
     }, ignore_index=True)
@@ -142,7 +142,7 @@ def RMSE(X_train,y_train, X_validate, y_validate):
     
     
     # create the model object
-    glm = TweedieRegressor(power=1, alpha=0)
+    glm = TweedieRegressor(alpha=5, power=1, warm_start=True)
     # fit the model to our training data.
     glm.fit(X_train, y_train.colonies_lost)
     # predict train
@@ -156,7 +156,7 @@ def RMSE(X_train,y_train, X_validate, y_validate):
 
     #append model and RMSE from GLM model to metric dataframe
     metric_df = metric_df.append({
-    'model': 'Tweedie Regressor(power=1, alpha=0)', 
+    'model': 'Tweedie Regressor(alpha=5, power=1, warm_start=True)', 
     'RMSE_train': rmse_train_tw,
     'RMSE_validate': rmse_validate_tw,
     }, ignore_index=True)
@@ -226,6 +226,7 @@ def viz_test_perfomance(y_test):
     plt.title("model prediction in test data")
     plt.xlabel("colony lost")
     plt.ylabel("count")
+    plt.legend()
     plt.show()
 
 
@@ -279,3 +280,33 @@ def select_rfe(X,y,  n_features_to_select = 4):
     features = X.columns[rfe.get_support()]
     
     return features
+
+def largest_loss(train):
+    ''' This function will input train data and plot average colony loss by season each year and overall'''
+    # set figure size
+    #plt.figure(figsize=(16, 10))
+    # plot colonies lost, grouped by year and month
+    train.colonies_lost.groupby([train.index.year, train.index.month]).sum().unstack(0).plot(figsize = (14,10))
+    #set average for each month
+    avg_line = train.colonies_lost.groupby(train.index.month).sum()
+    mean_line = avg_line / 10
+    #plot mean line
+    mean_line.plot(label='Average', color='red', linewidth=4, legend=True)
+    # set title
+    plt.title('Annual Colony Loss by Season', fontsize = 16)
+    # set tick label formatting
+    plt.ticklabel_format(style='plain', axis='y')
+    # plot vertical line for summer
+    plt.vlines(x=4, ymin=0, ymax=120000)
+    # plot vertical line for winter
+    plt.vlines(x=10, ymin=0, ymax=120000)
+    # label vertical line for summer
+    plt.annotate('Beginning of Summer', [3.8,121000], xycoords='data')
+    # label vertical line for winter
+    plt.annotate('Beginning of Winter', [9.0,121000], xycoords='data')
+    # label x-axis
+    plt.xlabel('Month')
+    # label y-axis
+    plt.ylabel('Colonies Lost')
+    
+    plt.show()
