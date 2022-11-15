@@ -33,7 +33,7 @@ ___
 ## <a name="project_description"></a>Project Description:
 [[Back to top](#top)]
 
-Bees provide nearly one-third of the food we eat by pollinating our fields and orchards. Bees are also a multi-billion dollar industry. The problem is that honeybee colonies are shrinking more and more each year. What we aim to do is predict honeybee colony loss over time based on key factors that help and harm honeybees. We will then make recommendations to people in the business: beekeepers, farmers, the USDA, honey and wax companies, and so on, to mitigate future losses and improve the overall outlook of honeybees in general. This project provides both a financial benefit and an environmental one, and we're excited to see what solutions we can provide for this important issue.
+Bees provide nearly one-third of the food we eat by pollinating our fields and orchards. Bees are also a multi-billion dollar industry. The problem is that honeybee colonies are shrinking more and more each year. What we’ve done is predict honeybee colony loss over time based on key factors that help and harm honeybees. We’ve found that certain states have better survivability for their bees, and plan to look further into what these states offer bees that could be applied to other states. We also found that the bee population dips more drastically in winter when they rely heavily on their honey reserves at that time to overwinter. We plan to explore the effect of other stressors, such as Mites, Pesticides, and Disease, on overall hive health.
 
 <a href = "https://www.canva.com/design/DAFQROGr2j4/vhxKf9p8nqg4u1fuLkqAcw/edit?utm_content=DAFQROGr2j4&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton">Project Slideshow Presentation</a>
 
@@ -43,11 +43,11 @@ Bees provide nearly one-third of the food we eat by pollinating our fields and o
 
 ### Project Outline:
 
-Technical Goals:
+#### Technical Goals:
 
-Our technical goals are to analyze honeybee colony data from the USDA to determine if there is a statistically significant amount of loss among colonies over time, and to develop a machine learning model that accurately predicts honeybee colony loss based on significant environmental and human-driven features. We can use these predictions to make recommendations to stakeholders to minimize colony loss and improve outcomes.
+Our technical goals are to analyze honeybee colony data from Beeinformed.org and the USDA to determine if there is a statistically significant amount of loss among colonies over time, and to develop a machine learning model that accurately predicts honeybee colony loss based on significant environmental and human-driven features. We can use these predictions to make recommendations to stakeholders to minimize colony loss and improve outcomes.
 
-Business Goals:
+#### Business Goals:
 
 Honeybees pollinate $15 billion worth of crops in the United States each year, including more than 130 types of fruits, nuts, and vegetables. Honeybees also produce honey, worth about $3.2 million in 2017 according to USDA-National Agricultural Statistics Service (NASS).
 
@@ -56,31 +56,45 @@ We want to provide stakeholders with an accurate model for predicting colony los
         
 ### Hypothesis
 
-Our initial hypothesis is that honeybee colony loss has increased over time and will continue to increase year over year if no measures are taken to mitigate or reverse this outcome. Some initial questions we have are:
+Our initial hypothesis is that honeybee colony loss has increased over time and will continue to increase year after year if no measures are taken to mitigate or reverse this outcome. Some initial questions we have are:
 
 How much have honeybee colonies diminished over time? Is this loss compounded year over year?
 
 What significant features drive honeybee colony loss?
 
-What time of year is the biggest loss?
+What time of year has the biggest loss?
+- Does summer or winter have the largest loss?
 
-What state/area suffers heaviest loss and primary factors attributing to that?
+What state/area suffers heaviest losses?
 
-Does summer or winter have the largest loss?
+What are the primary factors attributing to colony loss?
 
 Does the beekeeper to colony ratio have an effect on colony loss?
+- Does a Closer to 1:1 ratio bode better for a colony's survival?
 
 ### Target variable
 
-Our target variable is honeybee colony loss. We trained and evaluated several machine learning models to predict future colony loss based on significant features. We selected the best-performing model for testing unseen data.
+Our target variable is <b><u>honeybee colony loss</u></b>. We trained and evaluated several machine learning models to predict future colony loss based on significant features. 
+- Starting Colony Count
+- Net Gain/Loss through the year.
+- Bee Keeper to Hive Ratio
+We selected Our Lasso-Lars Model, with a 35% better prediction rate than baseline mean.
 
 ### Need to haves (Deliverables):
 
-Final Notebook: Full pipeline, hypotheses, statistical testing, markdown, code comments wrangle.py explore.py modeling.py Three models including time series Slide deck 7-10 minute presentation to a mixed technical and non-tech audience.
+- Final Notebook: Full pipeline, hypotheses, statistical testing, markdown, code comments, three models including time series.
+- wrangle.py: Docstrings and code comments.
+- explore.py: Docstrings and code comments.
+- modeling.py: Docstrings and code comments.
+- Slide deck
+- 7-10 minute presentation to a mixed technical and non-technical target audience.
 
 ### Nice to haves (With more time):
 
-Interactive map
+<s>Interactive map</s>
+Comparision of different regions
+Comparision of Stressor Data (ie. Mites, Pesticides, Diseases, etc.)
+Full Comparison of Transient Bees vs. Bees exclusive to a state.
 
 ***
 
@@ -91,7 +105,7 @@ Interactive map
 
 - The beekeeper-to-colony ratio has a significant positive correlation with colony loss (76 percent).
 
-- More colonies are lost in the winter season than in the summer season. This is consistent year after year.
+- More colonies are lost in the winter season than in the summer season. <u>This is consistent year after year</u>.
 
 - Florida and Wisconsin have had the highest cumulative net loss over time. Their stark differences in climate and geolocation point to factors other than location and climate affecting colony loss.
 
@@ -317,7 +331,7 @@ We used SelectKbest and Recursive feature Selection to help us identify our most
 | Polynomial Regression(degree = 2)   |1018.15 |  1281.37|
 
 
-- The LassoLars model performed well on the train and validate sets, beating baseline RMSE on train by 1586.81 and on validate by 984.03. (The baseline difference between train and validate sets was 1079.37, and the selected model had an RMSE  difference of 330.71). The OLS Regressor also performed well, but we decided overall that the Lasso Lars model is the best model for this project.
+- The LassoLars model performed well on the train and validate sets, beating baseline RMSE on train by 1586.81 and on validate by 984.03. (The baseline difference between train and validate sets was 1079.37, and the selected model had an RMSE difference of 330.71). The OLS Regressor also performed well, but we decided overall that the Lasso Lars model is the best model for this project.
 
 
 ## Testing the Model
@@ -336,7 +350,9 @@ Using LassoLars, we predicted our model on test data.
 
 ## <a name="conclusion"></a>Conclusion:
 [[Back to top](#top)]
-
+Based on our driving features of Starting Colony, Net gain/loss, and Bee Keeper to Hive Ratio, we're able to say that it appears these features have an impact on the overall number of lost colonies, and colony survivability, as well as our time series data showing a consistent trend of increased loss of colonies during winter. With these features we can recommend an increase in the number of Beekeepers, especially in states with larger numbers of starting colonies (as they appear to have a more commercialized bee keeping operation), as well as taking precautions and mitigation steps during winter to aid in Honey Bee Colony Survival.
+- Bee Keeper to Hive Ratio: It would appear that the less colonies a keeper has to tend to the more likely they are to be able to care for their bee health, and more likely to recongnize changes in the behavior of their colonies that could signal an issue or illness within it.
+- Winter: Due to the colder weather bees are less likely to venture out for pollen, and instead rely more heavily upon their honey reserves for nutrition for overwintering. Abstaining from Harvesting Honey as they temperatures begin to dip could benefit a colony as it gives them the food stores they require, or even adding a sugar syrup feeder designed for bees if you need to harvest their honey.  Even if you don't have bees, putting out a feeder in your yard or winter blooming flowers can help any bee brave enough to venture out for food. Also, Bees trapped away from the hive when it's cold will sometimes burrow in dead gardens for shelter, so waiting until the thaw to start prepping your garden can greatly benefit any unlucky bee who needs some shelter.
 
 ***
 ###### ReadMe template by: <a href="https://github.com/mdalton87" target="_blank">Mathew Dalton</a>
