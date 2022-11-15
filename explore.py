@@ -282,7 +282,7 @@ def select_rfe(X,y,  n_features_to_select = 4):
     
     return features
 
-<<<<<<< HEAD
+
 def largest_loss(train):
     ''' This function will input train data and plot average colony loss by season each year and overall'''
     # set figure size
@@ -312,7 +312,7 @@ def largest_loss(train):
     plt.ylabel('Colonies Lost')
     
     plt.show()
-=======
+
 #==================== Grid Search ===============================
 
 def lr_best_hyperparameter(X_train,y_train):
@@ -371,4 +371,4 @@ def tr_best_hyperparameter(X_train,y_train):
     
     #return output
     return best
->>>>>>> 9f1a8508a63ddf101942873cd0111349e00df042
+
