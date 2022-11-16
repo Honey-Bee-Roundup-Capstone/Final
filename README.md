@@ -91,10 +91,9 @@ We selected Our Lasso-Lars Model, with a 35% better prediction rate than baselin
 
 ### Nice to haves (With more time):
 
-<s>Interactive map</s>
-Comparision of different regions
-Comparision of Stressor Data (ie. Mites, Pesticides, Diseases, etc.)
-Full Comparison of Transient Bees vs. Bees exclusive to a state.
+- Comparision of different regions
+- Comparision of Stressor Data (ie. Mites, Pesticides, Diseases, etc.)
+- Full Comparison of Transient Bees vs. Bees exclusive to a state.
 
 ***
 
@@ -173,10 +172,10 @@ Data was originally found on Data.World, and further traced back to it's source 
 
 ## <a name="explore"></a>Data Exploration:
 [[Back to top](#top)]
-- Python files used for exploration:
+- Python files used for acquisition and exploration:
     - wrangle.py 
     - explore.py
-    - modeling.py
+
 
 
 ### Takeaways from exploration:
@@ -291,8 +290,8 @@ We used SelectKbest and Recursive feature Selection to help us identify our most
 
 - Model 1 results: 
     RMSE:
-      - Train: 1089.66
-      - Validate: 882.27
+      - Train: 1088.55
+      - Validate: 888.51
 
 
 ### Model 2 : Lasso Lars Model
@@ -308,16 +307,16 @@ We used SelectKbest and Recursive feature Selection to help us identify our most
 
 - Model 3 results:
     RMSE:
-    - Train: 1674.01
-    - Validate: 1950.43
+    - Train: 1678.18
+    - Validate: 1803.72
 
 
 ### Model 4: Polynomial Regression Model
 
 - Model 4 results: 
     RMSE:
-    - Train: 1018.15
-    - Validate: 1281.37
+    - Train: 1018.13
+    - Validate: 1281.02
 
 
 ## Selecting the Best Model:
@@ -325,13 +324,13 @@ We used SelectKbest and Recursive feature Selection to help us identify our most
 | model  | RMSE_train |RMSE_validate|
 |---|--|---|
 |Baseline | 2675.28 |   1881.73|
-|    OLS Regressor  |1089.66  |  882|
+|    OLS Regressor  |1088.55  |  888.51|
 | LASSOLARS(alpha = 1)  |1089.18  |   897.70|
-|Tweedie Regressor(power=5, alpha=1)  |1674.01 |  1950.43|
-| Polynomial Regression(degree = 2)   |1018.15 |  1281.37|
+|Tweedie Regressor(power=5, alpha=1)  |1678.18 |  1803.72|
+| Polynomial Regression(degree = 2)   |1018.13 |  1281.02|
 
 
-- The LassoLars model performed well on the train and validate sets, beating baseline RMSE on train by 1586.81 and on validate by 984.03. (The baseline difference between train and validate sets was 1079.37, and the selected model had an RMSE difference of 330.71). The OLS Regressor also performed well, but we decided overall that the Lasso Lars model is the best model for this project.
+- The LassoLars model performed well on the train and validate sets, beating baseline RMSE on train by 1586.10 and on validate by 984.03. (The baseline difference between train and validate sets was 793.55, and the selected model had an RMSE difference of 191.48). The OLS Regressor also performed well, but we decided overall that the Lasso Lars model is the best model for this project.
 
 
 ## Testing the Model
