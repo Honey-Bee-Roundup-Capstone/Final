@@ -251,8 +251,12 @@ We can reject the null hypothesis that there is no difference in colony loss bet
 
 - After scaling the data, we calculated a baseline using both the mean and the median, and selected the mean because it had a lower RMSE than the median. We selected four models to fit and train and created a function to run all four models and return the RMSE for both the train and validate sets.
 
+### Root Mean Square Error (RMSE). 
+RMSE is a measure of how spread out the residuals are where residuals are given by difference of actual and predicted value. In order words, RMSE tells you how concentrated our data is around line of best fit. We seek for small RMSE value as a measure of good model performance.
+
 
 ### Baseline
+A baseline model serves as performance benchmark against our models. It predicts on target without using any features, but rather using mean and median of the target.
     
 - Baseline Results: 
     
@@ -281,39 +285,6 @@ We used SelectKbest and Recursive feature Selection to help us confirm our most 
    Linear Regression (OLS), Lasso Lars, Tweedie Regressor(GLM), Polynomial Features 
 
     
-### Model 1: Linear Regression (OLS)
-
-
-- Model 1 results: 
-    RMSE:
-      - Train: 1088.55
-      - Validate: 888.51
-
-
-### Model 2 : Lasso Lars Model
-
-
-- Model 2 results: 
-    RMSE:
-    - Train: 1089.18
-    - Validate: 897.70
-
-
-### Model 3 : Tweedie Regressor (GLM)
-
-- Model 3 results:
-    RMSE:
-    - Train: 1678.18
-    - Validate: 1803.72
-
-
-### Model 4: Polynomial Regression Model
-
-- Model 4 results: 
-    RMSE:
-    - Train: 1018.13
-    - Validate: 1281.02
-
 
 ## Model performance overview:
 
