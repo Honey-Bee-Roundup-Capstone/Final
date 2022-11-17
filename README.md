@@ -85,7 +85,6 @@ We selected Our Lasso-Lars Model, with a 35% better prediction rate than baselin
 - Final Notebook: Full pipeline, hypotheses, statistical testing, markdown, code comments, three models including time series.
 - wrangle.py: Docstrings and code comments.
 - explore.py: Docstrings and code comments.
-- modeling.py: Docstrings and code comments.
 - Slide deck
 - 7-10 minute presentation to a mixed technical and non-technical target audience.
 
@@ -123,7 +122,6 @@ We selected Our Lasso-Lars Model, with a 35% better prediction rate than baselin
 Originally Data was found on <a href = "https://data.world/finley/bee-colony-statistical-data-from-1987-2017">Data.World</a>, then up-to-date data was pull from the Original Souces, and we narrowed down to the Bee Colony Loss Data from <a href = "https://bip2.beeinformed.org/loss-map/">BeeInformed.org</a>
 </p>
 
-#### Starting DataFrame:
 
 ---
 | Attribute | Definition | Data Type |
@@ -139,7 +137,6 @@ Originally Data was found on <a href = "https://data.world/finley/bee-colony-sta
 | beekeepers_exclusive_to_state | Percentage (%) of Bee Keepers with Colonies ONLY in the reported state. (Keepers with colonies in more than one state have their numbers added to all states they operate in.) |[FLOAT64]|
 | colonies_exclusive_to_state | Percentage (%) of Colonies kept by Bee Keepers who ONLY operate in the reported state.  |[FLOAT64]|
 
-#### Final DataFrame:
 
 ***
 
@@ -269,22 +266,22 @@ We can reject the null hypothesis that there is no difference in colony loss bet
       
 Since our baseline RMSE using mean is smaller than RMSE using median, we will use RMSE mean for our baseline
 
-We used SelectKbest and Recursive feature Selection to help us identify our most important drivers of colony loss. We picked 4 features.
+We used SelectKbest and Recursive feature Selection to help us confirm our most important drivers of colony loss. We picked 3 features.
 
 - Selected features to input into models:
-    - features = ['beekeepers_scaled', 'starting_colonies_scaled','ending_colonies_scaled', 'colonies_net_gain_scaled', 'beekeeper_colony_ratio_scaled']
+    - features = ['beekeepers_scaled', 'starting_colonies_scaled', 'colonies_net_gain_scaled', 'beekeeper_colony_ratio_scaled']
 
 ***
 
 ### Models and RMSE Values:
 
 
-- Will run the following regression models:
+- Will run the following 4 regression models:
 
-   OLS, Lasso Lars, Tweedie Regressor, Polynomial Features 
+   Linear Regression (OLS), Lasso Lars, Tweedie Regressor(GLM), Polynomial Features 
 
     
-#### Model 1: Linear Regression (OLS)
+### Model 1: Linear Regression (OLS)
 
 
 - Model 1 results: 
@@ -318,12 +315,12 @@ We used SelectKbest and Recursive feature Selection to help us identify our most
     - Validate: 1281.02
 
 
-## Selecting the Best Model:
+## Model performance overview:
 
 | model  | RMSE_train |RMSE_validate|
 |---|--|---|
 |Baseline | 2675.28 |   1881.73|
-|    OLS Regressor  |1088.55  |  888.51|
+|   Linear Regression  |1088.55  |  888.51|
 | LASSOLARS(alpha = 1)  |1089.18  |   897.70|
 |Tweedie Regressor(power=5, alpha=1)  |1678.18 |  1803.72|
 | Polynomial Regression(degree = 2)   |1018.13 |  1281.02|
