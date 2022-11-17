@@ -340,7 +340,7 @@ Using LassoLars, we predicted our model on test data.
 |Baseline| 2675.28|
 |Train|1089.18|
 |Validate |897.70|
-|RMSE | 1717.23|
+|Test | 1717.23|
 
 ## Model Testing Results
 Our LassoLars model was able to beat the baseline by 35%. We recommend using this model.
