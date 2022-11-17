@@ -82,7 +82,7 @@ Our target variable is <b><u>honeybee colony loss</u></b>. We trained and evalua
 
 ### Need to haves (Deliverables):
 
-- Final Notebook: Full pipeline, hypotheses, statistical testing, markdown, code comments, three models including time series.
+- Final Notebook: Full pipeline, hypotheses, statistical testing, markdown, code comments, four models.
 - wrangle.py: Docstrings and code comments.
 - explore.py: Docstrings and code comments.
 - Slide deck
