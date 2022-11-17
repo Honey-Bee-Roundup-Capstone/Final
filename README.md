@@ -78,7 +78,7 @@ Our target variable is <b><u>honeybee colony loss</u></b>. We trained and evalua
 - Starting Colony Count
 - Net Gain/Loss through the year.
 - Bee Keeper to Hive Ratio
-We selected Our Lasso-Lars Model, with a 35% better prediction rate than baseline mean.
+
 
 ### Need to haves (Deliverables):
 
@@ -266,10 +266,10 @@ We can reject the null hypothesis that there is no difference in colony loss bet
       
 Since our baseline RMSE using mean is smaller than RMSE using median, we will use RMSE mean for our baseline
 
-We used SelectKbest and Recursive feature Selection to help us confirm our most important drivers of colony loss. We picked 3 features.
+We used SelectKbest and Recursive feature Selection to help us confirm our most important drivers of colony loss. We initially picked 4 features to fit into our models, which were starting colonies, ending colonies, colonies net gain and beekeeper colony ratio. We, however, dropped ending colonies as this data was already captured by colonies net gain.
 
 - Selected features to input into models:
-    - features = ['beekeepers_scaled', 'starting_colonies_scaled', 'colonies_net_gain_scaled', 'beekeeper_colony_ratio_scaled']
+    - features = ['starting_colonies_scaled', 'colonies_net_gain_scaled', 'beekeeper_colony_ratio_scaled']
 
 ***
 
